@@ -38,7 +38,7 @@ fun ScaffoldWithTopBar() {
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = "Game List")
+                    Text(text = "GameClub")
                 }
             )
         }, content = {

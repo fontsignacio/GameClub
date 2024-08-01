@@ -6,7 +6,7 @@ data class Game(
     val thumbnail: String?,
     val shortDescription: String?,
     val gameUrl: String?,
-    val genre: String?,
+    val gender: String?,
     val platform: String?,
     val publisher: String?,
     val developer: String?,

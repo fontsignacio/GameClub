@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
@@ -21,10 +23,22 @@ import com.example.game_list.data.model.Game
 fun GameList() {
     val viewModel: GameListViewModel = viewModel()
     val games by viewModel.games.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
-    LazyColumn(modifier = Modifier.padding(16.dp)) {
-        items(games) { game ->
-            GameItem(game)
+    if (isLoading) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        LazyColumn(userScrollEnabled = true, modifier = Modifier.padding(16.dp)) {
+            items(games) { game ->
+                GameItem(game)
+            }
         }
     }
 }
@@ -44,6 +58,6 @@ fun GameItem(game: Game) {
         BasicText(text = game.title ?: "")
         BasicText(text = game.shortDescription ?: "")
         BasicText(text = "Developer: ${game.developer}")
-        BasicText(text = "Release Date: ${game.releaseDate}")
+        BasicText(text = "Gender: ${game.gender}")
     }
 }

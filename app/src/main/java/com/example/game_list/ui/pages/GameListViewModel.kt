@@ -15,19 +15,23 @@ class GameListViewModel : ViewModel() {
     private val _games = MutableStateFlow<List<Game>>(emptyList())
     val games: StateFlow<List<Game>> = _games
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     init {
         fetchGames()
     }
 
     private fun fetchGames() {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 val fetchedGames = repository.fetchGames()
                 _games.value = fetchedGames
-                println("Fetched Games: ${_games.value}")
-                println("Holis $games")
             } catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                _isLoading.value = false
             }
         }
     }
