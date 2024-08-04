@@ -1,6 +1,7 @@
 package com.example.game_list.ui.pages
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,22 +26,28 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.game_list.router.Route
+import com.example.game_list.router.pageList
 import com.example.game_list.ui.drawer.drawerList
-import com.example.game_list.ui.pages.home.HomePage
 import kotlinx.coroutines.launch
 
 @Composable
 fun GameClub() {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    val navController = rememberNavController()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerContent()
+            DrawerContent(navController)
         }
     ) {
-        ScaffoldWithTopBar {
+        ScaffoldWithTopBar(navController){
             scope.launch {
                 drawerState.open()
             }
@@ -49,7 +56,7 @@ fun GameClub() {
 }
 
 @Composable
-fun DrawerContent() {
+fun DrawerContent(navController: NavHostController) {
     ModalDrawerSheet(
         modifier = Modifier.width(250.dp)
     ){
@@ -67,7 +74,7 @@ fun DrawerContent() {
                 label = { Text(text = it.title) },
                 selected = false,
                 icon = { Icon(it.icon, contentDescription = null) },
-                onClick = { /*TODO*/ }
+                onClick = { navController.navigate(it.route) }
             )
         }
     }
@@ -77,7 +84,7 @@ fun DrawerContent() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldWithTopBar(openDrawer: () -> Unit) {
+fun ScaffoldWithTopBar(navController: NavHostController, openDrawer: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -95,7 +102,19 @@ fun ScaffoldWithTopBar(openDrawer: () -> Unit) {
                 }
             )
         }, content = {
-            HomePage(paddingValues = it)
+           Routers(navController, paddingValues = it)
         }
     )
+}
+
+@Composable
+fun Routers(navController: NavHostController, paddingValues: PaddingValues) {
+    NavHost(
+        navController = navController,
+        startDestination = Route.Home.route,
+    ) {
+        pageList(paddingValues = paddingValues).forEach { (route, content) ->
+            composable(route = route) { content() }
+        }
+    }
 }

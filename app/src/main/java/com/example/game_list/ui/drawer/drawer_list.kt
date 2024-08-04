@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 data class DrawerMenu(val icon: ImageVector, val title: String, val route: String)
 
 val drawerList = arrayOf(
-    DrawerMenu(Icons.Filled.Home, "Home", ""),
-    DrawerMenu(Icons.Filled.Search, "Search", ""),
-    DrawerMenu(Icons.Filled.AccountBox, "Category", "")
+    DrawerMenu(Icons.Filled.Home, "Home", "Home"),
+    DrawerMenu(Icons.Filled.Search, "Search", "Search"),
+    DrawerMenu(Icons.Filled.AccountBox, "Category", "Category")
 )
