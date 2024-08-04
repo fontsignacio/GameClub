@@ -1,4 +1,4 @@
-package com.example.game_list.ui.pages
+package com.example.game_list.ui.pages.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
