@@ -3,14 +3,14 @@ package com.example.game_list.ui.pages.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.game_list.data.model.Game
-import com.example.game_list.domain.RepositoryGame
+import com.example.game_list.data.repositories.GameRepositoryImp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
 class GameListViewModel : ViewModel() {
-    private val repository = RepositoryGame()
+    private val repository = GameRepositoryImp()
 
     private val _games = MutableStateFlow<List<Game>>(emptyList())
     val games: StateFlow<List<Game>> = _games
