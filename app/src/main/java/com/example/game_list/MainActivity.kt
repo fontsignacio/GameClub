@@ -5,12 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.game_list.data.datasource.game_list.local.GameDatabase
 import com.example.game_list.ui.pages.GameClub
 import com.example.game_list.ui.theme.GameClubTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        GameDatabase.initDataBase(applicationContext)
         setContent {
             GameClubTheme {
                 GameClub()

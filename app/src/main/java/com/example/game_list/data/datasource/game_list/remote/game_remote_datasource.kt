@@ -1,4 +1,4 @@
-package com.example.game_list.data.datasource.game_list
+package com.example.game_list.data.datasource.game_list.remote
 
 import com.example.game_list.service.BASE_URL
 import retrofit2.Retrofit

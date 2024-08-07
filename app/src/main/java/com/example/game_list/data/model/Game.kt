@@ -1,15 +1,19 @@
 package com.example.game_list.data.model
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "games")
 data class Game(
-    val id: Int?,
-    val title: String?,
-    val thumbnail: String?,
-    val short_description: String?,
-    val game_url: String?,
-    val genre: String?,
-    val platform: String?,
-    val publisher: String?,
-    val developer: String?,
-    val release_date: String?,
-    val freetogame_profile_url: String?
+    @PrimaryKey val id: Int,
+    @ColumnInfo val title: String?,
+    @ColumnInfo val thumbnail: String?,
+    @ColumnInfo val short_description: String?,
+    @ColumnInfo val game_url: String?,
+    @ColumnInfo val genre: String?,
+    @ColumnInfo val platform: String?,
+    @ColumnInfo val publisher: String?,
+    @ColumnInfo val developer: String?,
+    @ColumnInfo val release_date: String?,
+    @ColumnInfo val freetogame_profile_url: String?
 )
