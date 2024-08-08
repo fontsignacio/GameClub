@@ -14,11 +14,13 @@ class GameRepositoryImp : GameRepository() {
     override suspend fun fetchGames(): List<Game> {
         return withContext(Dispatchers.IO) {
             val localGames = gameLocalDataSource?.getAllGames()
-            val remoteGames = gameRemoteDataSourceImp.getGames()
-            localGames?.ifEmpty {
+            if(localGames.isNullOrEmpty()){
+                val remoteGames = gameRemoteDataSourceImp.getGames()
                 gameLocalDataSource?.insertGames(remoteGames)
-                remoteGames
-            } ?: remoteGames
+                return@withContext remoteGames
+            }else{
+                return@withContext localGames
+            }
         }
     }
 }
