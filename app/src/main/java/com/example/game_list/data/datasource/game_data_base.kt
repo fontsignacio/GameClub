@@ -1,10 +1,10 @@
-package com.example.game_list.data.datasource.game_list.local
+package com.example.game_list.data.datasource
 
 import android.content.Context
-import androidx.compose.runtime.rememberCompositionContext
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.game_list.data.datasource.game_list.local.GameLocalDataSource
 import com.example.game_list.data.model.Game
 
 @Database(entities = [Game::class], version = 1)

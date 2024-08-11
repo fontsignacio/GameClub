@@ -1,6 +1,6 @@
 package com.example.game_list.data.repositories
 
-import com.example.game_list.data.datasource.game_list.local.GameDatabase
+import com.example.game_list.data.datasource.GameDatabase
 import com.example.game_list.data.datasource.game_list.remote.GameRemoteDataSourceImp
 import com.example.game_list.data.model.Game
 import com.example.game_list.domain.repositories.GameRepository
