@@ -56,7 +56,7 @@ fun GameClub() {
 }
 
 @Composable
-fun DrawerContent(navController: NavHostController) {
+private fun DrawerContent(navController: NavHostController) {
     ModalDrawerSheet(
         modifier = Modifier.width(250.dp)
     ){
@@ -84,7 +84,7 @@ fun DrawerContent(navController: NavHostController) {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScaffoldWithTopBar(navController: NavHostController, openDrawer: () -> Unit) {
+private fun ScaffoldWithTopBar(navController: NavHostController, openDrawer: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -108,7 +108,7 @@ fun ScaffoldWithTopBar(navController: NavHostController, openDrawer: () -> Unit)
 }
 
 @Composable
-fun Routers(navController: NavHostController, paddingValues: PaddingValues) {
+private fun Routers(navController: NavHostController, paddingValues: PaddingValues) {
     NavHost(
         navController = navController,
         startDestination = Route.Home.route,

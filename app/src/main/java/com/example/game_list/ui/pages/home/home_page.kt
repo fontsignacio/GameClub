@@ -24,6 +24,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -32,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberAsyncImagePainter
+import com.example.game_list.R
 import com.example.game_list.data.model.Game
 import com.example.game_list.ui.theme.blueLight
 
@@ -48,7 +50,7 @@ fun HomePage(paddingValues: PaddingValues) {
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun GameList() {
+private fun GameList() {
     val viewModel: GameListViewModel = viewModel()
     val games by viewModel.gameList.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
@@ -74,6 +76,7 @@ fun GameList() {
                     )
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+                if(games.isEmpty()) EmptyState()
             }
             items(games) { game ->
                 GameItem(game)
@@ -84,7 +87,7 @@ fun GameList() {
 }
 
 @Composable
-fun GameItem(game: Game) {
+private fun GameItem(game: Game) {
     Card {
         Column(modifier = Modifier.padding(8.dp)) {
             Image(
@@ -112,7 +115,6 @@ fun GameItem(game: Game) {
                         .padding(start = 8.dp)
                         .align(Alignment.CenterVertically)
                 )
-
             }
             Spacer(modifier = Modifier.height(8.dp))
             BasicText(
@@ -125,7 +127,7 @@ fun GameItem(game: Game) {
 }
 
 @Composable
-fun SearchBarCompose(viewModel: GameListViewModel) {
+private fun SearchBarCompose(viewModel: GameListViewModel) {
     val searchText by viewModel.searchText.collectAsState()
     TextField(
         value = searchText,
@@ -133,9 +135,10 @@ fun SearchBarCompose(viewModel: GameListViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .border(
-                BorderStroke(width = 2.dp, color = Color.White),
+                BorderStroke(width = 2.dp, color = Color.Gray),
                 shape = RoundedCornerShape(50.dp)
             )
+            .background(color = Color.White, shape = RoundedCornerShape(50.dp))
             .height(50.dp),
         textStyle = TextStyle(fontSize = 17.sp),
         leadingIcon = {
@@ -154,4 +157,28 @@ fun SearchBarCompose(viewModel: GameListViewModel) {
             imeAction = ImeAction.Done
         ),
     )
+}
+
+@Composable
+private fun EmptyState(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(50.dp))
+        Image(
+            painter = painterResource(id = R.drawable.empty_state),
+            contentDescription = null,
+            modifier = Modifier
+                .height(190.dp)
+                .fillMaxWidth(),
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        BasicText(
+            text = "No Results Found",
+            style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp),
+        )
+    }
 }
