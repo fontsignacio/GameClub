@@ -1,6 +1,5 @@
 package com.example.game_list.ui.pages.home
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,7 +12,6 @@ import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextField
@@ -28,13 +26,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.rememberAsyncImagePainter
 import com.example.game_list.R
-import com.example.game_list.data.model.Game
+import com.example.game_list.ui.pages.common.GameItem
 import com.example.game_list.ui.theme.blueLight
 
 @Composable
@@ -48,7 +44,6 @@ fun HomePage(paddingValues: PaddingValues) {
     ) { GameList() }
 }
 
-@SuppressLint("SuspiciousIndentation")
 @Composable
 private fun GameList() {
     val viewModel: GameListViewModel = viewModel()
@@ -82,46 +77,6 @@ private fun GameList() {
                 GameItem(game)
                 Spacer(modifier = Modifier.height(8.dp))
             }
-        }
-    }
-}
-
-@Composable
-private fun GameItem(game: Game) {
-    Card {
-        Column(modifier = Modifier.padding(8.dp)) {
-            Image(
-                painter = rememberAsyncImagePainter(game.thumbnail),
-                contentDescription = null,
-                modifier = Modifier
-                    .height(190.dp)
-                    .fillMaxWidth(),
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                BasicText(
-                    text = game.title ?: "",
-                    style = TextStyle(fontWeight = FontWeight.Bold),
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.weight(1f)
-                )
-                BasicText(
-                    text = "${game.platform}",
-                    modifier = Modifier
-                        .padding(start = 8.dp)
-                        .align(Alignment.CenterVertically)
-                )
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            BasicText(
-                text = "${game.short_description}",
-                overflow = TextOverflow.Ellipsis,
-
-            )
         }
     }
 }
