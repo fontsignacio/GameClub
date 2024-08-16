@@ -6,11 +6,11 @@ import com.example.game_list.domain.usescases.BaseUsesCases
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
-class GameListUsesCase : BaseUsesCases<GameRepositoryImp, List<Game>>() {
+class GameListUsesCase : BaseUsesCases<String?, List<Game>>() {
 
-    override suspend fun execute(input: GameRepositoryImp): List<Game> {
+    override suspend fun execute(input: String?): List<Game> {
         return try {
-            input.fetchGames()
+            GameRepositoryImp().fetchGames(category = input)
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()

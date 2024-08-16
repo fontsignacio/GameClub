@@ -3,7 +3,6 @@ package com.example.game_list.ui.pages.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.game_list.data.model.Game
-import com.example.game_list.data.repositories.GameRepositoryImp
 import com.example.game_list.domain.usescases.game_list.GameListUsesCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,7 +13,6 @@ import kotlinx.coroutines.launch
 
 
 class GameListViewModel : ViewModel() {
-    private val gameRepositoryImp = GameRepositoryImp()
     private val gameListUsesCase = GameListUsesCase()
 
     private val _games = MutableStateFlow<List<Game>>(emptyList())
@@ -32,7 +30,7 @@ class GameListViewModel : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             try {
-                _games.value = gameListUsesCase.execute(gameRepositoryImp)
+                _games.value = gameListUsesCase.execute(null)
             } finally {
                 _isLoading.value = false
             }

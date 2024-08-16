@@ -11,11 +11,11 @@ class GameRepositoryImp : GameRepository() {
     private val gameLocalDataSource = GameDatabase.getInstance()?.gameDao()
     private val gameRemoteDataSourceImp = GameRemoteDataSourceImp.makeRetrofitSevice()
 
-    override suspend fun fetchGames(): List<Game> {
+    override suspend fun fetchGames(category: String?): List<Game> {
         return withContext(Dispatchers.IO) {
             val localGames = gameLocalDataSource?.getAllGames()
             if(localGames.isNullOrEmpty()){
-                val remoteGames = gameRemoteDataSourceImp.getGames()
+                val remoteGames = gameRemoteDataSourceImp.getGames(category = category)
                 gameLocalDataSource?.insertGames(remoteGames)
                 return@withContext remoteGames
             }else{
